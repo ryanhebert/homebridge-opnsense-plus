@@ -1,0 +1,25 @@
+{
+  "name": "homebridge-opnsense-plus",
+  "displayName": "Homebridge OPNsense Plus",
+  "version": "0.0.1",
+  "description": "OPNsense rule toggles as HomeKit switches",
+  "main": "index.js",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "homebridge": ">=1.6.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "peerDependencies": {
+    "homebridge": ">=1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanhebert/homebridge-opnsense-plus.git"
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,84 @@
+{
+  "pluginAlias": "OPNsenseSwitches",
+  "pluginType": "platform",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "required": ["host", "apiKey", "apiSecret", "switches"],
+    "properties": {
+      "host": {
+        "title": "OPNsense Host (host:port)",
+        "type": "string",
+        "description": "E.g. switch.domain:8443 or 192.168.1.1:8443"
+      },
+      "apiKey": { "title": "API Key", "type": "string" },
+      "apiSecret": { "title": "API Secret", "type": "string" },
+
+      "showAdvanced": { "title": "Show Advanced Settings", "type": "boolean", "default": false },
+
+      "certificates": {
+        "title": "Certificates",
+        "type": "object",
+        "condition": { "functionBody": "return model.showAdvanced === true;" },
+        "properties": {
+          "verifyTls": { "title": "Verify TLS Certificates", "type": "boolean", "default": false },
+          "caPath": { "title": "Custom CA Path", "type": "string" }
+        }
+      },
+
+      "statusMethod": {
+        "title": "Status Method",
+        "type": "string",
+        "oneOf": [
+          { "title": "getRule", "const": "getRule" },
+          { "title": "searchRule (fallback)", "const": "searchRule" }
+        ],
+        "default": "getRule",
+        "condition": { "functionBody": "return model.showAdvanced === true;" }
+      },
+
+      "applyAfterToggle": {
+        "title": "Apply Changes After Toggle",
+        "type": "boolean",
+        "default": false,
+        "condition": { "functionBody": "return model.showAdvanced === true;" }
+      },
+
+      "requestTimeout": {
+        "title": "Request Timeout (ms)",
+        "type": "integer",
+        "default": 15000,
+        "condition": { "functionBody": "return model.showAdvanced === true;" }
+      },
+
+      "statusTtl": {
+        "title": "Status Cache TTL (ms)",
+        "type": "integer",
+        "default": 3000,
+        "condition": { "functionBody": "return model.showAdvanced === true;" }
+      },
+
+      "pollInterval": {
+        "title": "Poll Interval (seconds, 0 = off)",
+        "type": "integer",
+        "default": 0,
+        "condition": { "functionBody": "return model.showAdvanced === true;" }
+      },
+
+      "switches": {
+        "title": "Switches",
+        "description": "Each switch will be created as an accessory.",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["name", "ruleUuid"],
+          "properties": {
+            "name": { "title": "Switch Name", "type": "string", "default": "" },
+            "ruleUuid": { "title": "Rule UUID", "type": "string", "default": "" },
+            "invert": { "title": "Invert (ON = Internet Allowed)", "type": "boolean", "default": false }
+          }
+        }
+      }
+    }
+  }
+}
