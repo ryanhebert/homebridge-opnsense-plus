@@ -78,7 +78,43 @@
             "invert": { "title": "Invert (ON = Internet Allowed)", "type": "boolean", "default": false }
           }
         }
-      }
+      },
+
+      "Gateways" : {
+  "type": "object",
+  "title": "Gateways (Sensor)",
+  "properties": {
+    "enabled": {
+      "title": "Enable Gateway Sensors",
+      "type": "boolean",
+      "default": false
+    },
+    "pollInterval": {
+      "title": "Poll Interval (seconds)",
+      "type": "integer",
+      "default": 30,
+      "minimum": 5
+    },
+    "sensorType": {
+      "title": "Sensor Type",
+      "type": "string",
+      "oneOf": [
+        { "title": "Occupancy Sensor (Online = Detected)", "enum": ["occupancy"] },
+        { "title": "Contact Sensor (Online = Contact Detected)", "enum": ["contact"] }
+      ],
+      "default": "occupancy"
+    },
+    "include": {
+      "title": "Only Include These Gateways (optional)",
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "If left empty, all gateways are exposed."
+    }
+  }
+}
+
+
+
     }
   }
 }
